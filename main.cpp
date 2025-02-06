@@ -3,39 +3,68 @@
 
 using namespace std;
 
-//Structs
+// Structs
 
-struct Modelos{
-    int id;
-    char descripcion[100+1];
-    int precioBase;
-    int temporada; // 0-verano 1-invierno (preguntar a la profe si deberia ser un char[])
-    //ptr a la lista de componentes ???
+struct tipoInfo
+{
+    int idAccesorio;
+    int cantidad;
 };
 
-struct Componentes{
-    int id;
-    char descripcion[100+1];
-    ListaDeProovedores listaDeProovedores[10];
+struct Nodo
+{
+    tipoInfo info;
+    Nodo *sgte;
+};
+
+struct registroModelos
+{
+    int idModelo;
+    char descripcion[100 + 1];
+    float precioBase;
+    char temporada; // 'v' verano - 'i' invierno o puede ser en mayusculas
+    Nodo *listaComp = NULL;
+};
+
+// registroModelos vectorModelos[50];
+
+struct tipoInfoProveedores
+{
+    int idProveedor;
+    char nombre[50];
+    float valorUnitario;
+};
+
+struct NodoProveedores
+{
+    tipoInfoProveedores info;
+    NodoProveedores *sgte ;
+};
+
+struct registroComponentes
+{
+    int idComponente;
+    char descripcion[100 + 1];
+    NodoProveedores* listaProveedores = NULL;
     int stock;
 };
 
-struct ListaDeProovedores{
-    int id;
-    char nombre[50+1];
-    int valorUnitario;
-};
+// registroComponentes vectorComponentes[1000];
 
-struct Pedidos{
+struct pedido //archivo
+{
     int idPedido;
-    int idLinea;
+    int idLinea; // Un pedido puede tener varias lineas, cada linea seria un producto distinto.
     int fecha;
-    int idModelo;
+    int idModelo; //registroModelos.idModelo
     int cantidad;
-    int costo;
+    float costo;
 };
 
-int main() {
-	cout<<"Hello World";
+int main()
+{
+    cout << "Hello World";
     return 0;
 }
+
+
