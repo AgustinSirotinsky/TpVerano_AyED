@@ -5,84 +5,104 @@ using namespace std;
 
 // Structs
 
-struct tipoInfo
+struct tipoInfo // Dentro de vector de struct modelos.
 {
     int idAccesorio;
     int cantidad;
 };
 
-struct Nodo
+struct NodoComponentes // Lista de componentes
 {
     tipoInfo info;
-    Nodo *sgte;
+    NodoComponentes *sgte; 
 };
 
-struct registroModelos
+struct registroModelos // Struct modelos.
 {
-    int idModelo;
+    int idModelo; // Secuencial
     char descripcion[100 + 1];
     float precioBase;
     char temporada; // 'v' verano - 'i' invierno o puede ser en mayusculas
-    Nodo *listaComp = NULL;
+    NodoComponentes *listaComp = NULL; // Fijarse si no es Nodo *sgte = NULL en vez de esta linea, o ambos = NULL.
 };
 
 // registroModelos vectorModelos[50];
 
-struct tipoInfoProveedores
+struct tipoInfoProveedores // Struct proveedores
 {
     int idProveedor;
     char nombre[50];
     float valorUnitario;
 };
 
-struct NodoProveedores
+struct NodoProveedores // Lista proveedores
 {
     tipoInfoProveedores info;
-    NodoProveedores *sgte ;
+    NodoProveedores *sgte;
 };
 
-struct registroComponentes
+struct registroComponentes // Struct Componentes -> Va a un vector de 1000. Son las cosas necesarias para armar una zapatilla
 {
-    int idComponente;
+    int idComponente; // Secuencial, comienza en 1000 (de 1000 a 2000).
     char descripcion[100 + 1];
-    NodoProveedores* listaProveedores = NULL;
+    NodoProveedores *listaProveedores = NULL;
     int stock;
 };
 
 // registroComponentes vectorComponentes[1000];
 
-struct pedido //archivo
+struct pedido // archivo aprox 8 o 10 pedidos
 {
     int idPedido;
     int idLinea; // Un pedido puede tener varias lineas, cada linea seria un producto distinto.
     int fecha;
-    int idModelo; //registroModelos.idModelo
+    int idModelo; // registroModelos.idModelo
     int cantidad;
     float costo;
 };
-//Ordenar x burbuja
-void OrdxBur(int Vec[],int N){
-int aux;
-    int ord = 0;
 
-    for (int k = 0; k < N - 1 && ord == 0; k++) {
-        ord = 1;
-        for (int l = 0; l < N - k - 1; l++) {
-            if (Vec[l] > Vec[l + 1]) {
-                aux = Vec[l];
-                Vec[l] = Vec[l + 1];
-                Vec[l + 1] = aux;
-                ord = 0; 
+void burbuja(int v[], int N)
+{
+    int i, j, aux;
+
+    for (i = 1; i < N - 1; i++)
+    {
+        for (j = 1; j <= N - i; j++)
+        {
+            if (v[j - 1] > v[j])
+            {
+                aux = v[j];
+                v[j] = v[j - 1];
+                v[j - 1] = aux;
             }
         }
     }
 }
-//Arme este con ayuda de los apuntes y chatgpt porque el que te dan esta mal aparentemente
+
+// Arme este con ayuda de los apuntes y chatgpt porque el que te dan esta mal aparentemente
 
 int main()
 {
     cout << "Hello World";
     return 0;
 }
+
+// PUNTO 1. :
+
+// - Dicho por Roxana: Hacer un while que lea los pedidos (uno por uno), otro que lea las lineas una por una.
+//   Saca el id modelo y lo busca en el vector de modelos con pos unica y predecible (pq esta ordenado).
+//   Calcular el totalLinea = PrecioBase (precio del modelos) + Cant de productos * Coponente. Suma el precio base del modelo + el gasto de los componentes.
+//   Por cada componente -> Buscarlo en el vector -> Buscar proveedor mas barato (Punto 2).
+
+// -  Sumar los totales de cada linea y multiplicamos por la cantidad para conseguir el total del pedido.
+
+// - Actualizar el archivo? Agregamos el costo del pedido.
+
+// - Disminuir el stock de cada uno de los componentes usados.
+
+// - Mostrar el total.
+
+// - Mostrar archivo de pedidos actualizado.
+// - Mostrar el total de todos los pedidos? -> Sumar los costos y mostrar por pantalla.
 
 
