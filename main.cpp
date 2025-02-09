@@ -60,6 +60,24 @@ struct pedido //archivo
     int cantidad;
     float costo;
 };
+//Ordenar x burbuja
+void OrdxBur(int Vec[],int N){
+int aux;
+    int ord = 0;
+
+    for (int k = 0; k < N - 1 && ord == 0; k++) {
+        ord = 1;
+        for (int l = 0; l < N - k - 1; l++) {
+            if (Vec[l] > Vec[l + 1]) {
+                aux = Vec[l];
+                Vec[l] = Vec[l + 1];
+                Vec[l + 1] = aux;
+                ord = 0; 
+            }
+        }
+    }
+}
+//Arme este con ayuda de los apuntes y chatgpt porque el que te dan esta mal aparentemente
 
 int main()
 {
