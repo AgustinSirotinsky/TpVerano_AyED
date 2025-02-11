@@ -83,7 +83,19 @@ void burbuja(int v[], int N)
 
 int main()
 {
-    cout << "Hello World";
+    
+	FILE* ArchivoPedidos=fopen("Pedidos.dat","rb");//despues vemos en que orden lo hacemos o si va en una funcion aparte y así
+    pedido Pedido;
+    int idPedidoAnt=0;//no se si se hace falta incicializar :v
+    int idLineaAnt;
+    
+	while(!feof(ArchivoPedidos)){
+    	fread(&Pedido,sizeof(pedido),1,ArchivoPedidos);
+    		while(Pedido.idPedido == idPedidoAnt){//esto es para cuando el idPedido se repita. (osea id linea !=)
+    			//Acá tendra que ir todo lo  totalLinea y eso
+			}
+		idPedidoAnt=Pedido.idPedido;
+	}
     return 0;
 }
 
@@ -104,5 +116,3 @@ int main()
 
 // - Mostrar archivo de pedidos actualizado.
 // - Mostrar el total de todos los pedidos? -> Sumar los costos y mostrar por pantalla.
-
-
