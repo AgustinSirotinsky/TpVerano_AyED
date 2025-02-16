@@ -5,7 +5,7 @@ using namespace std;
 
 // Structs
 
-struct tipoInfo // Dentro de vector de struct modelos.
+struct tipoInfoComponentes // Dentro de vector de struct modelos.
 {
     int idAccesorio;
     int cantidad;
@@ -13,7 +13,7 @@ struct tipoInfo // Dentro de vector de struct modelos.
 
 struct NodoComponentes // Lista de componentes
 {
-    tipoInfo info;
+    tipoInfoComponentes info;
     NodoComponentes *sgte; 
 };
 
@@ -26,9 +26,7 @@ struct registroModelos // Struct modelos.
     NodoComponentes *listaComp = NULL; // Fijarse si no es Nodo *sgte = NULL en vez de esta linea, o ambos = NULL.
 };
 
-// registroModelos vectorModelos[50];
-
-struct tipoInfoProveedores // Struct proveedores
+struct tipoInfoComponentesProveedores // Struct proveedores
 {
     int idProveedor;
     char nombre[50];
@@ -37,7 +35,7 @@ struct tipoInfoProveedores // Struct proveedores
 
 struct NodoProveedores // Lista proveedores
 {
-    tipoInfoProveedores info;
+    tipoInfoComponentesProveedores info;
     NodoProveedores *sgte;
 };
 
@@ -49,8 +47,6 @@ struct registroComponentes // Struct Componentes -> Va a un vector de 1000. Son 
     int stock;
 };
 
-// registroComponentes vectorComponentes[1000];
-
 struct pedido // archivo aprox 8 o 10 pedidos
 {
     int idPedido;
@@ -60,6 +56,124 @@ struct pedido // archivo aprox 8 o 10 pedidos
     int cantidad;
     float costo;
 };
+
+// nodo para la colardix
+// struct NodoPedido {
+//     pedido info;
+//     NodoPedido* sgte;
+// };
+
+//funciones
+void cargarVector(pedido vec[], FILE* f, int n);
+void burbuja(int v[], int N);
+void actualizarPedidos(FILE* ArchivoPedidos);
+void leerArchivo (FILE* ArchivoPedidos);
+// void queue(NodoPedido*& frente, NodoPedido*& fin, pedido x);
+// pedido unqueue(NodoPedido*& frente, NodoPedido*& fin);
+int main()
+{
+	FILE* ArchivoPedidos=fopen("Pedidos.dat","rb+");//despues vemos en que orden lo hacemos o si va en una funcion aparte y así
+    registroModelos Modelos[50] = {
+        {1, "Zapatilla_Urbana_Negra", 12000.0, 'v', NULL},
+        {2, "Zapatilla_Deportiva_Blanque", 15000.0, 'v', NULL},
+        {3, "Zapatilla_Trekking_Resistente", 18000.0, 'i', NULL},
+        {4, "Zapatilla_Casual_Azul", 13000.0, 'v', NULL},
+        {5, "Zapatilla_High_Top_Roja", 17000.0, 'i', NULL},
+        {6, "Zapatilla_Minimalista_Beige", 14000.0, 'v', NULL},
+        {7, "Zapatilla_Clásica_Bicolor", 12500.0, 'v', NULL},
+        {8, "Zapatilla_Correr_Liviana", 16000.0, 'v', NULL},
+        {9, "Zapatilla_Skate_Reforzada", 17500.0, 'i', NULL},
+        {10, "Zapatilla_Deportiva_Negro", 15500.0, 'v', NULL},
+        {11, "Zapatilla_Hiking_Agarre_Max", 18500.0, 'i', NULL},
+        {12, "Zapatilla_Basket_Ajuste_Pro", 19500.0, 'i', NULL},
+        {13, "Zapatilla_Casual_Tela_Suave", 13500.0, 'v', NULL},
+        {14, "Zapatilla_Outdoor_Impermeable", 21000.0, 'i', NULL},
+        {15, "Zapatilla_Deportiva_Elástica", 14500.0, 'v', NULL},
+        {16, "Zapatilla_Con_Plataforma", 16000.0, 'v', NULL},
+        {17, "Zapatilla_Trail_Grip_Fuerte", 20000.0, 'i', NULL},
+        {18, "Zapatilla_Tenis_Profesional", 22000.0, 'v', NULL},
+        {19, "Zapatilla_Deportivo_Confort", 16500.0, 'v', NULL},
+        {20, "Zapatilla_Streetwear_Exclusiva", 19000.0, 'i', NULL},
+        {21, "Zapatilla_Running_Aireado", 17500.0, 'v', NULL},
+        {22, "Zapatilla_Basket_Amortiguada", 19500.0, 'i', NULL},
+        {23, "Zapatilla_Casual_Diseño_Moderno", 14000.0, 'v', NULL},
+        {24, "Zapatilla_Deportiva_Ultra_Light", 15500.0, 'v', NULL},
+        {25, "Zapatilla_Montaña_Termica", 23000.0, 'i', NULL},
+        {26, "Zapatilla_Velcro_Comoda", 12500.0, 'v', NULL},
+        {27, "Zapatilla_Sintética_Multicolor", 13500.0, 'v', NULL},
+        {28, "Zapatilla_Básica_Económica", 11000.0, 'v', NULL},
+        {29, "Zapatilla_Deportiva_Malla", 14500.0, 'v', NULL},
+        {30, "Zapatilla_Alta_Confort", 17500.0, 'i', NULL},
+        {31, "Zapatilla_Gym_Premium", 20000.0, 'v', NULL},
+        {32, "Zapatilla_Fitness_Antideslizante", 18500.0, 'v', NULL},
+        {33, "Zapatilla_Deportiva_Suela_Ancha", 19000.0, 'v', NULL},
+        {34, "Zapatilla_Basket_Liviana", 19500.0, 'i', NULL},
+        {35, "Zapatilla_Deportiva_Suela_Gel", 21000.0, 'v', NULL},
+        {36, "Zapatilla_Premium_Casual", 22000.0, 'i', NULL},
+        {37, "Zapatilla_Trekking_Alta_Gama", 25000.0, 'i', NULL},
+        {38, "Zapatilla_Outdoor_Adventure", 23000.0, 'i', NULL},
+        {39, "Zapatilla_Techno_Streetwear", 20000.0, 'v', NULL},
+        {40, "Zapatilla_Retro_Deportiva", 17000.0, 'v', NULL},
+        {41, "Zapatilla_Edición_Limitada", 30000.0, 'i', NULL},
+        {42, "Zapatilla_Clásica_Reinventada", 15000.0, 'v', NULL},
+        {43, "Zapatilla_Gamer_Especial", 19500.0, 'v', NULL},
+        {44, "Zapatilla_Futbol_Sintética", 24000.0, 'v', NULL},
+        {45, "Zapatilla_Trail_Todo_Terreno", 22000.0, 'i', NULL},
+        {46, "Zapatilla_Deportivo_Aerodinámico", 20000.0, 'v', NULL},
+        {47, "Zapatilla_Ultra_Resistente", 27000.0, 'i', NULL},
+        {48, "Zapatilla_Casual_Básica", 12000.0, 'v', NULL},
+        {49, "Zapatilla_Lujo_Exclusiva", 35000.0, 'i', NULL},
+        {50, "Zapatilla_Eco_Friendly", 18000.0, 'v', NULL}
+    };
+    registroComponentes Componentes[1000] = {
+        {1000, "Cordones_Negros", NULL, 50},
+        {1001, "Plantillas_de_gel", NULL, 30},
+        {1002, "Suela_de_Goma", NULL, 20},
+        {1003, "Tela", NULL, 40},
+        {1004, "Cierre_Lateral", NULL, 25},
+        {1005, "Ojales_Metalicos", NULL, 100},
+        {1006, "Plantillas_Ortopedicas", NULL, 35},
+        {1007, "Suela_Antideslizante", NULL, 25},
+        {1008, "Tela_Impermeable", NULL, 30},
+        {1009, "Cordones_Blancos", NULL, 45},
+        {1010, "Espuma_Acolchonada", NULL, 50},
+        {1011, "Refuerzo_Puntera", NULL, 20},
+        {1012, "Cuero_Sintetico", NULL, 15},
+        {1013, "Costuras_Reforzadas", NULL, 80},
+        {1014, "Tela_Transpirable", NULL, 40},
+        {1015, "Entresuela_EVA", NULL, 35},
+        {1016, "Talonera", NULL, 25},
+        {1017, "Velcro_Ajustable", NULL, 30},
+        {1018, "Ojales_Plasticos", NULL, 90},
+        {1019, "Forro_Interior", NULL, 50},
+        {1020, "Refuerzo_Talon", NULL, 20},
+        {1021, "Plantilla_Extraible", NULL, 30},
+        {1022, "Malla_Ligera", NULL, 40},
+        {1023, "Suela_Transparente", NULL, 15},
+        {1024, "Cordones_Elasticos", NULL, 35},
+        {1025, "Suela_Bicolor", NULL, 25},
+        {1026, "Borde_Acolchonado", NULL, 30},
+        {1027, "Logo_Bordado", NULL, 45},
+        {1028, "Tela_Reflectante", NULL, 20},
+        {1029, "Cordones_Multicolor", NULL, 45}
+    };
+
+
+    fseek(ArchivoPedidos, 0, SEEK_END);
+    int n = ftell(ArchivoPedidos) / sizeof(pedido);  // Cantidad de registros
+    fseek(ArchivoPedidos, 0, SEEK_SET);
+
+    //Funcion para cout pedidos
+    // leerArchivo(ArchivoPedidos);
+    
+    pedido vecDePedidos[n];
+    cargarVector(vecDePedidos,ArchivoPedidos,n);
+
+
+    //cerrar archivo
+    fclose(ArchivoPedidos);
+    return 0;
+}
 
 void burbuja(int v[], int N)
 {
@@ -79,12 +193,15 @@ void burbuja(int v[], int N)
     }
 }
 
-// Arme este con ayuda de los apuntes y chatgpt porque el que te dan esta mal aparentemente
+void cargarVector(pedido vec[], FILE* f, int n){
+    for (int i=0;i<n;i++){
+        fread(&vec[i],sizeof(pedido),1,f);
+    }
+}
 
 void leerArchivo (FILE* ArchivoPedidos){ //para usar de prueba borrar cuando ya no lo necesitemos mas
     pedido Pedido;
     fseek(ArchivoPedidos, 0, SEEK_SET);  // Volver al inicio del archivo por si se uso y no se cerro
-
 
     while (fread(&Pedido, sizeof(pedido), 1, ArchivoPedidos)) {
         cout << "---------------------" << endl
@@ -97,7 +214,7 @@ void leerArchivo (FILE* ArchivoPedidos){ //para usar de prueba borrar cuando ya 
     }
 }
 
-void actualizarPedidos(FILE* ArchivoPedidos){
+void actualizarPedidos(FILE* ArchivoPedidos, pedido* colaPedidoFrente){
     pedido Pedido;
     fseek(ArchivoPedidos, 0, SEEK_SET);  // Volver al inicio del archivo por si se uso y no se cerro
 
@@ -106,34 +223,51 @@ void actualizarPedidos(FILE* ArchivoPedidos){
 
     int i = 0;
     
-	while (fread(&Pedido, sizeof(pedido), 1, ArchivoPedidos)){
+	while (colaPedidoFrente!=NULL){
         cout << i << endl;
     		while(Pedido.idPedido == idPedidoAnt){//esto es para cuando el idPedido se repita. (osea id linea !=)
-    			//Acá tendra que ir todo lo  totalLinea y eso
+    			//Acá tendra que ir todo lo totalLinea y eso
 			}
 		// idPedidoAnt=Pedido.idPedido;
         i++;
     }
 }
 
-int main()
-{
-    
-	FILE* ArchivoPedidos=fopen("Pedidos.dat","rb+");//despues vemos en que orden lo hacemos o si va en una funcion aparte y así
-    actualizarPedidos(ArchivoPedidos);
-    //Funcion para cout pedidos
-    // leerArchivo(ArchivoPedidos);
+// void queue(NodoPedido*& frente, NodoPedido*& fin, pedido x){ 
+//     NodoPedido* p =new NodoPedido;
+//     p->info = x;
+//     p->sgte=NULL; // como el nodo p va a tener la direccion del ultimo, el siguiente a este necesita ser NULL
+//     // si la cola esta vacia ahora el frente apunta al nuevo nodo
+//     if (frente==NULL){
+//         frente = p;
+//     }
+//     // si la cola NO esta vacia el nuevo nodo se debe enlazar despues del ultimo
+//     else {
+//         fin->sgte=p; // el siguiente del ultimo es el nuevo que acabamos de crear
+//     }
 
-    //cerrar archivo
-    fclose(ArchivoPedidos);
-    return 0;
-}
+//     fin=p; // el puntero al final siempre debe apuntar al nodo que acabamos de crear
+// }
+
+// pedido unqueue(NodoPedido*& frente, NodoPedido*& fin){
+//     // en el caso de una cola el puntero que siempre se modifica es el del frente, el puntero del final permanece sin modificaciones hasta que saquemos el ultimo
+//     // porque cuando sacamos el ultimo la cola queda vacia y el puntero tiene que apuntar a NULL
+//     NodoPedido* p = frente; // a un puntero auxilar p, le asignamos la direccion de memoria del primer nodo de la cola
+//     pedido x = p->info; // en el entero guardamos la info del primer nodo
+//     frente=p->sgte; // hacemos avanzar al puntero frente al proximo nodo porque vamos a eliminar al que estaba primero
+//     // este control es lo unico que cambia en el procedimiento de la pila, porque si el frente vale NULL el fin tambien
+//     if (frente==NULL){
+//         fin==NULL; // cola vacia
+//     }
+//     delete p; // eliminamos el nodo que era primero antes
+//     return x; // retornamos info del primer nodo
+// }
 
 // PUNTO 1. :
 
 // - Dicho por Roxana: Hacer un while que lea los pedidos (uno por uno), otro que lea las lineas una por una.
 //   Saca el id modelo y lo busca en el vector de modelos con pos unica y predecible (pq esta ordenado).
-//   Calcular el totalLinea = PrecioBase (precio del modelos) + Cant de productos * Coponente. Suma el precio base del modelo + el gasto de los componentes.
+//   Calcular el totalLinea = PrecioBase (precio del modelos) + Cant de productos * Componente. Suma el precio base del modelo + el gasto de los componentes.
 //   Por cada componente -> Buscarlo en el vector -> Buscar proveedor mas barato (Punto 2).
 
 // -  Sumar los totales de cada linea y multiplicamos por la cantidad para conseguir el total del pedido.

@@ -18,3 +18,9 @@ habian 2 fread en el while de actualizarPedido no se porque lo saque -- ?
 deje lo de idPedidoAnt pq no estoy seguro como se tiene que usar pero lo puse en comentario
 
 agregue el log jijo
+
+agussiro06 - 16/02
+
+Agregamos y llenamos vector de componentes
+Agregamos y llenamos vector de pedidos
+Agregamos y llenamos vector de modelos
