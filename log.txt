@@ -1,0 +1,20 @@
+agussiro06 - 16/02:
+
+Cambie el while
+Antes: while(!feof(ArchivoPedidos))
+Ahora: while (fread(&Pedido, sizeof(pedido), 1, ArchivoPedidos) == 1)
+(antes se quedaba trabado)
+
+Abri el archivo en rb+ asi despues se puede actualizar (no estoy seguro si esta bien esto)
+
+Agregue una funcion para leer los pedidos
+
+Movi el while para actualizar los precios a una funcion
+
+Agregue el fclose al final del main
+
+habian 2 fread en el while de actualizarPedido no se porque lo saque
+
+deje lo de idPedidoAnt pq no estoy seguro como se tiene que usar pero lo puse en comentario
+
+agregue el log jijo
