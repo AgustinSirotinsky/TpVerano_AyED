@@ -73,59 +73,59 @@ void leerArchivo (FILE* ArchivoPedidos);
 int main()
 {
 	FILE* ArchivoPedidos=fopen("Pedidos.dat","rb+");//despues vemos en que orden lo hacemos o si va en una funcion aparte y así
-    registroModelos Modelos[50] = {
-        {1, "Zapatilla_Urbana_Negra", 12000.0, 'v', NULL},
-        {2, "Zapatilla_Deportiva_Blanque", 15000.0, 'v', NULL},
-        {3, "Zapatilla_Trekking_Resistente", 18000.0, 'i', NULL},
-        {4, "Zapatilla_Casual_Azul", 13000.0, 'v', NULL},
-        {5, "Zapatilla_High_Top_Roja", 17000.0, 'i', NULL},
-        {6, "Zapatilla_Minimalista_Beige", 14000.0, 'v', NULL},
-        {7, "Zapatilla_Clásica_Bicolor", 12500.0, 'v', NULL},
-        {8, "Zapatilla_Correr_Liviana", 16000.0, 'v', NULL},
-        {9, "Zapatilla_Skate_Reforzada", 17500.0, 'i', NULL},
-        {10, "Zapatilla_Deportiva_Negro", 15500.0, 'v', NULL},
-        {11, "Zapatilla_Hiking_Agarre_Max", 18500.0, 'i', NULL},
-        {12, "Zapatilla_Basket_Ajuste_Pro", 19500.0, 'i', NULL},
-        {13, "Zapatilla_Casual_Tela_Suave", 13500.0, 'v', NULL},
-        {14, "Zapatilla_Outdoor_Impermeable", 21000.0, 'i', NULL},
-        {15, "Zapatilla_Deportiva_Elástica", 14500.0, 'v', NULL},
-        {16, "Zapatilla_Con_Plataforma", 16000.0, 'v', NULL},
-        {17, "Zapatilla_Trail_Grip_Fuerte", 20000.0, 'i', NULL},
-        {18, "Zapatilla_Tenis_Profesional", 22000.0, 'v', NULL},
-        {19, "Zapatilla_Deportivo_Confort", 16500.0, 'v', NULL},
-        {20, "Zapatilla_Streetwear_Exclusiva", 19000.0, 'i', NULL},
-        {21, "Zapatilla_Running_Aireado", 17500.0, 'v', NULL},
-        {22, "Zapatilla_Basket_Amortiguada", 19500.0, 'i', NULL},
-        {23, "Zapatilla_Casual_Diseño_Moderno", 14000.0, 'v', NULL},
-        {24, "Zapatilla_Deportiva_Ultra_Light", 15500.0, 'v', NULL},
-        {25, "Zapatilla_Montaña_Termica", 23000.0, 'i', NULL},
-        {26, "Zapatilla_Velcro_Comoda", 12500.0, 'v', NULL},
-        {27, "Zapatilla_Sintética_Multicolor", 13500.0, 'v', NULL},
-        {28, "Zapatilla_Básica_Económica", 11000.0, 'v', NULL},
-        {29, "Zapatilla_Deportiva_Malla", 14500.0, 'v', NULL},
-        {30, "Zapatilla_Alta_Confort", 17500.0, 'i', NULL},
-        {31, "Zapatilla_Gym_Premium", 20000.0, 'v', NULL},
-        {32, "Zapatilla_Fitness_Antideslizante", 18500.0, 'v', NULL},
-        {33, "Zapatilla_Deportiva_Suela_Ancha", 19000.0, 'v', NULL},
-        {34, "Zapatilla_Basket_Liviana", 19500.0, 'i', NULL},
-        {35, "Zapatilla_Deportiva_Suela_Gel", 21000.0, 'v', NULL},
-        {36, "Zapatilla_Premium_Casual", 22000.0, 'i', NULL},
-        {37, "Zapatilla_Trekking_Alta_Gama", 25000.0, 'i', NULL},
-        {38, "Zapatilla_Outdoor_Adventure", 23000.0, 'i', NULL},
-        {39, "Zapatilla_Techno_Streetwear", 20000.0, 'v', NULL},
-        {40, "Zapatilla_Retro_Deportiva", 17000.0, 'v', NULL},
-        {41, "Zapatilla_Edición_Limitada", 30000.0, 'i', NULL},
-        {42, "Zapatilla_Clásica_Reinventada", 15000.0, 'v', NULL},
-        {43, "Zapatilla_Gamer_Especial", 19500.0, 'v', NULL},
-        {44, "Zapatilla_Futbol_Sintética", 24000.0, 'v', NULL},
-        {45, "Zapatilla_Trail_Todo_Terreno", 22000.0, 'i', NULL},
-        {46, "Zapatilla_Deportivo_Aerodinámico", 20000.0, 'v', NULL},
-        {47, "Zapatilla_Ultra_Resistente", 27000.0, 'i', NULL},
-        {48, "Zapatilla_Casual_Básica", 12000.0, 'v', NULL},
-        {49, "Zapatilla_Lujo_Exclusiva", 35000.0, 'i', NULL},
-        {50, "Zapatilla_Eco_Friendly", 18000.0, 'v', NULL}
+    registroModelos vecModelos[50] = {
+        {1000, "Zapatilla_Eco_Friendly", 18000.0, 'v', NULL},
+        {1001, "Zapatilla_Urbana_Negra", 12000.0, 'v', NULL},
+        {1002, "Zapatilla_Deportiva_Blanque", 15000.0, 'v', NULL},
+        {1003, "Zapatilla_Trekking_Resistente", 18000.0, 'i', NULL},
+        {1004, "Zapatilla_Casual_Azul", 13000.0, 'v', NULL},
+        {1005, "Zapatilla_High_Top_Roja", 17000.0, 'i', NULL},
+        {1006, "Zapatilla_Minimalista_Beige", 14000.0, 'v', NULL},
+        {1007, "Zapatilla_Clásica_Bicolor", 12500.0, 'v', NULL},
+        {1008, "Zapatilla_Correr_Liviana", 16000.0, 'v', NULL},
+        {1009, "Zapatilla_Skate_Reforzada", 17500.0, 'i', NULL},
+        {1010, "Zapatilla_Deportiva_Negro", 15500.0, 'v', NULL},
+        {1011, "Zapatilla_Hiking_Agarre_Max", 18500.0, 'i', NULL},
+        {1012, "Zapatilla_Basket_Ajuste_Pro", 19500.0, 'i', NULL},
+        {1013, "Zapatilla_Casual_Tela_Suave", 13500.0, 'v', NULL},
+        {1014, "Zapatilla_Outdoor_Impermeable", 21000.0, 'i', NULL},
+        {1015, "Zapatilla_Deportiva_Elástica", 14500.0, 'v', NULL},
+        {1016, "Zapatilla_Con_Plataforma", 16000.0, 'v', NULL},
+        {1017, "Zapatilla_Trail_Grip_Fuerte", 20000.0, 'i', NULL},
+        {1018, "Zapatilla_Tenis_Profesional", 22000.0, 'v', NULL},
+        {1019, "Zapatilla_Deportivo_Confort", 16500.0, 'v', NULL},
+        {1020, "Zapatilla_Streetwear_Exclusiva", 19000.0, 'i', NULL},
+        {1021, "Zapatilla_Running_Aireado", 17500.0, 'v', NULL},
+        {1022, "Zapatilla_Basket_Amortiguada", 19500.0, 'i', NULL},
+        {1023, "Zapatilla_Casual_Diseño_Moderno", 14000.0, 'v', NULL},
+        {1024, "Zapatilla_Deportiva_Ultra_Light", 15500.0, 'v', NULL},
+        {1025, "Zapatilla_Montaña_Termica", 23000.0, 'i', NULL},
+        {1026, "Zapatilla_Velcro_Comoda", 12500.0, 'v', NULL},
+        {1027, "Zapatilla_Sintética_Multicolor", 13500.0, 'v', NULL},
+        {1028, "Zapatilla_Básica_Económica", 11000.0, 'v', NULL},
+        {1029, "Zapatilla_Deportiva_Malla", 14500.0, 'v', NULL},
+        {1030, "Zapatilla_Alta_Confort", 17500.0, 'i', NULL},
+        {1031, "Zapatilla_Gym_Premium", 20000.0, 'v', NULL},
+        {1032, "Zapatilla_Fitness_Antideslizante", 18500.0, 'v', NULL},
+        {1033, "Zapatilla_Deportiva_Suela_Ancha", 19000.0, 'v', NULL},
+        {1034, "Zapatilla_Basket_Liviana", 19500.0, 'i', NULL},
+        {1035, "Zapatilla_Deportiva_Suela_Gel", 21000.0, 'v', NULL},
+        {1036, "Zapatilla_Premium_Casual", 22000.0, 'i', NULL},
+        {1037, "Zapatilla_Trekking_Alta_Gama", 25000.0, 'i', NULL},
+        {1038, "Zapatilla_Outdoor_Adventure", 23000.0, 'i', NULL},
+        {1039, "Zapatilla_Techno_Streetwear", 20000.0, 'v', NULL},
+        {1040, "Zapatilla_Retro_Deportiva", 17000.0, 'v', NULL},
+        {1041, "Zapatilla_Edición_Limitada", 30000.0, 'i', NULL},
+        {1042, "Zapatilla_Clásica_Reinventada", 15000.0, 'v', NULL},
+        {1043, "Zapatilla_Gamer_Especial", 19500.0, 'v', NULL},
+        {1044, "Zapatilla_Futbol_Sintética", 24000.0, 'v', NULL},
+        {1045, "Zapatilla_Trail_Todo_Terreno", 22000.0, 'i', NULL},
+        {1046, "Zapatilla_Deportivo_Aerodinámico", 20000.0, 'v', NULL},
+        {1047, "Zapatilla_Ultra_Resistente", 27000.0, 'i', NULL},
+        {1048, "Zapatilla_Casual_Básica", 12000.0, 'v', NULL},
+        {1049, "Zapatilla_Lujo_Exclusiva", 35000.0, 'i', NULL}
     };
-    registroComponentes Componentes[1000] = {
+    registroComponentes vecComponentes[1000] = {
         {1000, "Cordones_Negros", NULL, 50},
         {1001, "Plantillas_de_gel", NULL, 30},
         {1002, "Suela_de_Goma", NULL, 20},
@@ -168,7 +168,12 @@ int main()
     
     pedido vecDePedidos[n];
     cargarVector(vecDePedidos,ArchivoPedidos,n);
-
+    int idModeloActual;
+    for (int i=0;i<n;i++){
+        idModeloActual=vecDePedidos[i].idModelo;
+        cout << idModeloActual - 1000 << ": ";
+        cout << vecModelos[idModeloActual-1000].descripcion << endl;
+    }
 
     //cerrar archivo
     fclose(ArchivoPedidos);

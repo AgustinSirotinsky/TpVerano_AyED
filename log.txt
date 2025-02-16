@@ -25,3 +25,4 @@ Agregamos y llenamos vector de componentes
 Agregamos y llenamos vector de pedidos
 Agregamos y llenamos vector de modelos
 Actualizamos .gitignore para que ignore los .exe
+Agregamos para buscar el idmodelo
