@@ -81,21 +81,51 @@ void burbuja(int v[], int N)
 
 // Arme este con ayuda de los apuntes y chatgpt porque el que te dan esta mal aparentemente
 
-int main()
-{
-    
-	FILE* ArchivoPedidos=fopen("Pedidos.dat","rb");//despues vemos en que orden lo hacemos o si va en una funcion aparte y así
+void leerArchivo (FILE* ArchivoPedidos){ //para usar de prueba borrar cuando ya no lo necesitemos mas
     pedido Pedido;
-    int idPedidoAnt=0;//no se si se hace falta incicializar :v
+    fseek(ArchivoPedidos, 0, SEEK_SET);  // Volver al inicio del archivo por si se uso y no se cerro
+
+
+    while (fread(&Pedido, sizeof(pedido), 1, ArchivoPedidos)) {
+        cout << "---------------------" << endl
+        << "idPedido: " << Pedido.idPedido << endl
+        << "idLinea: " << Pedido.idLinea << endl
+        << "fecha: " << Pedido.fecha << endl
+        << "idModelo: " << Pedido.idModelo << endl
+        << "cantidad: " << Pedido.cantidad << endl
+        << "costo: " << Pedido.costo << endl;
+    }
+}
+
+void actualizarPedidos(FILE* ArchivoPedidos){
+    pedido Pedido;
+    fseek(ArchivoPedidos, 0, SEEK_SET);  // Volver al inicio del archivo por si se uso y no se cerro
+
+    int idPedidoAnt=0;//no se si se hace falta incicializar :v (dos puntos v)
     int idLineaAnt;
+
+    int i = 0;
     
-	while(!feof(ArchivoPedidos)){
-    	fread(&Pedido,sizeof(pedido),1,ArchivoPedidos);
+	while (fread(&Pedido, sizeof(pedido), 1, ArchivoPedidos)){
+        cout << i << endl;
     		while(Pedido.idPedido == idPedidoAnt){//esto es para cuando el idPedido se repita. (osea id linea !=)
     			//Acá tendra que ir todo lo  totalLinea y eso
 			}
-		idPedidoAnt=Pedido.idPedido;
-	}
+		// idPedidoAnt=Pedido.idPedido;
+        i++;
+    }
+}
+
+int main()
+{
+    
+	FILE* ArchivoPedidos=fopen("Pedidos.dat","rb+");//despues vemos en que orden lo hacemos o si va en una funcion aparte y así
+    actualizarPedidos(ArchivoPedidos);
+    //Funcion para cout pedidos
+    // leerArchivo(ArchivoPedidos);
+
+    //cerrar archivo
+    fclose(ArchivoPedidos);
     return 0;
 }
 
