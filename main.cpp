@@ -14,7 +14,7 @@ struct tipoInfo // Dentro de vector de struct modelos.
 struct NodoComponentes // Lista de componentes
 {
     tipoInfo info;
-    NodoComponentes *sgte; 
+    NodoComponentes *sgte;
 };
 
 struct registroModelos // Struct modelos.
