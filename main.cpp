@@ -3,7 +3,7 @@
 
 using namespace std;
 
-// Structs
+// Structs---------------------------------------------------------------
 
 struct tipoInfoComponentes // Dentro de vector de struct modelos.
 {
@@ -29,10 +29,15 @@ struct registroModelos // Struct modelos.
 struct tipoInfoComponentesProveedores // Struct proveedores
 {
     int idProveedor;
-    char nombre[50];
+    char nombre[50+1];
     float valorUnitario;
 };
-
+struct ArchivoListaProv{
+    int idComp; //inicia el 1000
+    int idProv;
+    char nombre[50+1];
+    float valorUnitario;
+};
 struct NodoProveedores // Lista proveedores
 {
     tipoInfoComponentesProveedores info;
@@ -56,232 +61,283 @@ struct pedido // archivo aprox 8 o 10 pedidos
     int cantidad;
     float costo;
 };
+//para inicializar las listas
+struct listaComp{
+    int idModelo;
+    int idAccesorio;
+    int cantidad;
+};
 
-// nodo para la colardix
-// struct NodoPedido {
-//     pedido info;
-//     NodoPedido* sgte;
-// };
 
-//funciones
+//funciones-----------------------------------------------------------------------------------------------
 void cargarVector(pedido vec[], FILE* f, int n);
 void burbuja(int v[], int N);
 void actualizarPedidos(FILE* ArchivoPedidos);
 void leerArchivo (FILE* ArchivoPedidos);
-// void queue(NodoPedido*& frente, NodoPedido*& fin, pedido x);
-// pedido unqueue(NodoPedido*& frente, NodoPedido*& fin);
-int main()
-{
-	FILE* ArchivoPedidos=fopen("Pedidos.dat","rb+");//despues vemos en que orden lo hacemos o si va en una funcion aparte y así
-    registroModelos vecModelos[50] = {
-        {1000, "Zapatilla_Eco_Friendly", 18000.0, 'v', NULL},
-        {1001, "Zapatilla_Urbana_Negra", 12000.0, 'v', NULL},
-        {1002, "Zapatilla_Deportiva_Blanque", 15000.0, 'v', NULL},
-        {1003, "Zapatilla_Trekking_Resistente", 18000.0, 'i', NULL},
-        {1004, "Zapatilla_Casual_Azul", 13000.0, 'v', NULL},
-        {1005, "Zapatilla_High_Top_Roja", 17000.0, 'i', NULL},
-        {1006, "Zapatilla_Minimalista_Beige", 14000.0, 'v', NULL},
-        {1007, "Zapatilla_Clásica_Bicolor", 12500.0, 'v', NULL},
-        {1008, "Zapatilla_Correr_Liviana", 16000.0, 'v', NULL},
-        {1009, "Zapatilla_Skate_Reforzada", 17500.0, 'i', NULL},
-        {1010, "Zapatilla_Deportiva_Negro", 15500.0, 'v', NULL},
-        {1011, "Zapatilla_Hiking_Agarre_Max", 18500.0, 'i', NULL},
-        {1012, "Zapatilla_Basket_Ajuste_Pro", 19500.0, 'i', NULL},
-        {1013, "Zapatilla_Casual_Tela_Suave", 13500.0, 'v', NULL},
-        {1014, "Zapatilla_Outdoor_Impermeable", 21000.0, 'i', NULL},
-        {1015, "Zapatilla_Deportiva_Elástica", 14500.0, 'v', NULL},
-        {1016, "Zapatilla_Con_Plataforma", 16000.0, 'v', NULL},
-        {1017, "Zapatilla_Trail_Grip_Fuerte", 20000.0, 'i', NULL},
-        {1018, "Zapatilla_Tenis_Profesional", 22000.0, 'v', NULL},
-        {1019, "Zapatilla_Deportivo_Confort", 16500.0, 'v', NULL},
-        {1020, "Zapatilla_Streetwear_Exclusiva", 19000.0, 'i', NULL},
-        {1021, "Zapatilla_Running_Aireado", 17500.0, 'v', NULL},
-        {1022, "Zapatilla_Basket_Amortiguada", 19500.0, 'i', NULL},
-        {1023, "Zapatilla_Casual_Diseño_Moderno", 14000.0, 'v', NULL},
-        {1024, "Zapatilla_Deportiva_Ultra_Light", 15500.0, 'v', NULL},
-        {1025, "Zapatilla_Montaña_Termica", 23000.0, 'i', NULL},
-        {1026, "Zapatilla_Velcro_Comoda", 12500.0, 'v', NULL},
-        {1027, "Zapatilla_Sintética_Multicolor", 13500.0, 'v', NULL},
-        {1028, "Zapatilla_Básica_Económica", 11000.0, 'v', NULL},
-        {1029, "Zapatilla_Deportiva_Malla", 14500.0, 'v', NULL},
-        {1030, "Zapatilla_Alta_Confort", 17500.0, 'i', NULL},
-        {1031, "Zapatilla_Gym_Premium", 20000.0, 'v', NULL},
-        {1032, "Zapatilla_Fitness_Antideslizante", 18500.0, 'v', NULL},
-        {1033, "Zapatilla_Deportiva_Suela_Ancha", 19000.0, 'v', NULL},
-        {1034, "Zapatilla_Basket_Liviana", 19500.0, 'i', NULL},
-        {1035, "Zapatilla_Deportiva_Suela_Gel", 21000.0, 'v', NULL},
-        {1036, "Zapatilla_Premium_Casual", 22000.0, 'i', NULL},
-        {1037, "Zapatilla_Trekking_Alta_Gama", 25000.0, 'i', NULL},
-        {1038, "Zapatilla_Outdoor_Adventure", 23000.0, 'i', NULL},
-        {1039, "Zapatilla_Techno_Streetwear", 20000.0, 'v', NULL},
-        {1040, "Zapatilla_Retro_Deportiva", 17000.0, 'v', NULL},
-        {1041, "Zapatilla_Edición_Limitada", 30000.0, 'i', NULL},
-        {1042, "Zapatilla_Clásica_Reinventada", 15000.0, 'v', NULL},
-        {1043, "Zapatilla_Gamer_Especial", 19500.0, 'v', NULL},
-        {1044, "Zapatilla_Futbol_Sintética", 24000.0, 'v', NULL},
-        {1045, "Zapatilla_Trail_Todo_Terreno", 22000.0, 'i', NULL},
-        {1046, "Zapatilla_Deportivo_Aerodinámico", 20000.0, 'v', NULL},
-        {1047, "Zapatilla_Ultra_Resistente", 27000.0, 'i', NULL},
-        {1048, "Zapatilla_Casual_Básica", 12000.0, 'v', NULL},
-        {1049, "Zapatilla_Lujo_Exclusiva", 35000.0, 'i', NULL}
-    };
-    registroComponentes vecComponentes[1000] = {
-        {1000, "Cordones_Negros", NULL, 50},
-        {1001, "Plantillas_de_gel", NULL, 30},
-        {1002, "Suela_de_Goma", NULL, 20},
-        {1003, "Tela", NULL, 40},
-        {1004, "Cierre_Lateral", NULL, 25},
-        {1005, "Ojales_Metalicos", NULL, 100},
-        {1006, "Plantillas_Ortopedicas", NULL, 35},
-        {1007, "Suela_Antideslizante", NULL, 25},
-        {1008, "Tela_Impermeable", NULL, 30},
-        {1009, "Cordones_Blancos", NULL, 45},
-        {1010, "Espuma_Acolchonada", NULL, 50},
-        {1011, "Refuerzo_Puntera", NULL, 20},
-        {1012, "Cuero_Sintetico", NULL, 15},
-        {1013, "Costuras_Reforzadas", NULL, 80},
-        {1014, "Tela_Transpirable", NULL, 40},
-        {1015, "Entresuela_EVA", NULL, 35},
-        {1016, "Talonera", NULL, 25},
-        {1017, "Velcro_Ajustable", NULL, 30},
-        {1018, "Ojales_Plasticos", NULL, 90},
-        {1019, "Forro_Interior", NULL, 50},
-        {1020, "Refuerzo_Talon", NULL, 20},
-        {1021, "Plantilla_Extraible", NULL, 30},
-        {1022, "Malla_Ligera", NULL, 40},
-        {1023, "Suela_Transparente", NULL, 15},
-        {1024, "Cordones_Elasticos", NULL, 35},
-        {1025, "Suela_Bicolor", NULL, 25},
-        {1026, "Borde_Acolchonado", NULL, 30},
-        {1027, "Logo_Bordado", NULL, 45},
-        {1028, "Tela_Reflectante", NULL, 20},
-        {1029, "Cordones_Multicolor", NULL, 45}
-    };
+float CalcularComponente(registroModelos vecModelos[], int N, registroComponentes vecComponentes[],	pedido p);
+void pushListaComp(NodoProveedores*&, tipoInfoComponentesProveedores);
+void cargarDatos(registroComponentes v[]);
+void CargarComponente (registroComponentes vComponentes[]);
+void pushLista(NodoComponentes*& lista, tipoInfoComponentes valor);
+void cargarDatos(registroModelos v[]);
+void cargarListaComponentes(registroModelos vModelos[]);
+//--------------------------------------------------------------------------------------------------------
 
-
-    fseek(ArchivoPedidos, 0, SEEK_END);
-    int n = ftell(ArchivoPedidos) / sizeof(pedido);  // Cantidad de registros
-    fseek(ArchivoPedidos, 0, SEEK_SET);
-
-    //Funcion para cout pedidos
-    // leerArchivo(ArchivoPedidos);
+int main(){
+	FILE* ArchivoPedidos=fopen("Pedidos.dat","rb+");
+    registroModelos vecModelos[50];
+    cargarListaComponentes(vecModelos);
     
-    pedido vecDePedidos[n];
-    cargarVector(vecDePedidos,ArchivoPedidos,n);
-    int idModeloActual;
-    for (int i=0;i<n;i++){
-        idModeloActual=vecDePedidos[i].idModelo;
-        cout << idModeloActual - 1000 << ": ";
-        cout << vecModelos[idModeloActual-1000].descripcion << endl;
-    }
+    registroComponentes vecComponentes[1000];
+    CargarComponente (vecComponentes);
+	pedido p;
+	int idPedidoAnt=0;
+	float CostoPedido=0;
+	
+	cout<<"Pedidos: "<<endl;
+	cout<<"===================================================================="<<endl;
+	
+	while (fread(&p, sizeof(pedido), 1, ArchivoPedidos)) {  		
+    
+		float Componente;
+		int N=p.idModelo-1;
+		
+		if(p.idPedido!=idPedidoAnt &&idPedidoAnt != 0){
+			cout<<"Precio Total del pedido: "<< CostoPedido <<endl;
+			cout<<"===================================================================="<<endl;
+			CostoPedido = 0;//reinicio por las dudas
+		}
+		
+		//imprime los datos del pedido
+		if(p.idPedido!=idPedidoAnt)
+			cout<<"Id de pedido: "<<p.idPedido<<endl;
+		cout<<"Id de linea: "<<p.idLinea<<endl;
+		cout<<"Fecha: "<<p.fecha<<endl;
+		cout<<"Id de modelo: "<<p.idModelo <<endl;
+		cout<<"Cantidad: "<<p.cantidad<<endl;
+		
+		//por linea
+		Componente= CalcularComponente( vecModelos,N, vecComponentes, p);
+		p.costo=vecModelos[N].precioBase + p.cantidad*Componente;
+		//total
+		CostoPedido+=p.costo;
+		
+		//grabar en el archivo y cout
 
+		fseek(ArchivoPedidos, -sizeof(pedido), SEEK_CUR);
+		fwrite(&p,sizeof(pedido),1,ArchivoPedidos);
+		fseek(ArchivoPedidos, 0, SEEK_CUR);
+	
+		cout<<"Costo de linea: "<<p.costo<<endl;
+	
+		// Actualizar el idPedido actual
+  		idPedidoAnt = p.idPedido;
+
+  		
+	};
+	
+	// imprimir el costo total del último pedido después de salir del loop
+    if (idPedidoAnt != 0){cout << "Precio Total del pedido: " << CostoPedido << endl;
+    cout << "====================================================================" << endl;}
+
+	for(int i=0; i<30;i++)
+		cout<<vecComponentes[i].stock<<endl;
+    
     //cerrar archivo
     fclose(ArchivoPedidos);
     return 0;
 }
 
-void burbuja(int v[], int N)
-{
-    int i, j, aux;
+void pushListaComp(NodoProveedores *&lista, tipoInfoComponentesProveedores valor) {
+    NodoProveedores *aux = new NodoProveedores();
+    aux->info = valor;
+    aux->sgte = lista;
+    lista = aux;
+}
 
-    for (i = 1; i < N - 1; i++)
-    {
-        for (j = 1; j <= N - i; j++)
-        {
-            if (v[j - 1] > v[j])
-            {
-                aux = v[j];
-                v[j] = v[j - 1];
-                v[j - 1] = aux;
-            }
+void pushLista(NodoComponentes*& lista, tipoInfoComponentes valor) {
+    NodoComponentes* aux = new NodoComponentes();
+    aux->info = valor;
+    aux->sgte = lista;
+    lista = aux;
+}
+
+
+void cargarDatosComp(registroComponentes v[]){ //v[i-1000]
+   for (int i = 0; i < 20; i++) {
+        v[i].idComponente = 1000 + i;
+    }
+
+    strcpy(v[0].descripcion, "Suela_de_goma");
+    strcpy(v[1].descripcion, "Plantilla_de_espuma");
+    strcpy(v[2].descripcion, "Cordones_de_algodon");
+    strcpy(v[3].descripcion, "Cierre_de_velcro");
+    strcpy(v[4].descripcion, "Cuero_sintetico");
+    strcpy(v[5].descripcion, "Tela_de_malla");
+    strcpy(v[6].descripcion, "Espuma_para_talon");
+    strcpy(v[7].descripcion, "Ojales_metalicos_plateados");
+    strcpy(v[8].descripcion, "Logo bordado");
+    strcpy(v[9].descripcion, "Refuerzo de punta");
+    strcpy(v[10].descripcion, "Entresuela EVA");
+    strcpy(v[11].descripcion, "Talonera");
+    strcpy(v[12].descripcion, "Forro textil");
+    strcpy(v[13].descripcion, "Etiqueta de marca");
+    strcpy(v[14].descripcion, "Espuma de memoria");
+    strcpy(v[15].descripcion, "Puntera de goma");
+    strcpy(v[16].descripcion, "Adhesivo industrial");
+    strcpy(v[17].descripcion, "Ojales_metalicos_dorados");
+    strcpy(v[18].descripcion, "Cápsula de aire");
+    strcpy(v[19].descripcion, "Ojales_metalicos_bronce");
+
+    for(int i=0; i<20; i++){
+        v[i].stock=1000;
+    }
+
+    //inicalizar el resto en cero para que no tenga basura
+    for(int i=20; i<1000; i++){
+        v[i].idComponente=0;
+        strcpy(v[i].descripcion, "\0");
+    }
+};
+
+void CargarComponente (registroComponentes vComponentes[]) {
+    //hacerlo de 1000
+    cargarDatosComp(vComponentes);
+
+    FILE *prov=fopen("ArchivoListaProv.dat","rb");
+    //que voy a necesitar:
+    ArchivoListaProv raux;
+    tipoInfoComponentesProveedores aux;
+    int idAnterior;
+
+    fread(&raux, sizeof(ArchivoListaProv), 1, prov);
+    while(!feof(prov)){
+        idAnterior=raux.idComp;
+        while((!feof(prov))&& (idAnterior==raux.idComp)){
+            //pasar solo los campo de la lista de proveedores
+            aux.idProveedor=raux.idProv;
+            strcpy(aux.nombre, raux.nombre);
+            aux.valorUnitario= raux.valorUnitario;
+            
+            pushListaComp(vComponentes[raux.idComp - 1000].listaProveedores, aux);
+            fread(&raux, sizeof(ArchivoListaProv), 1, prov);
+        }
+    };
+    fclose(prov);
+
+
+
+}
+void cargarDatos(registroModelos v[]){ //v[i-1000]
+   
+    
+    v[0].idModelo = 1;
+    strcpy(v[0].descripcion, "Zapatilla_Eco_Friendly");
+    v[0].precioBase = 18000.0;
+    v[0].temporada = 'v';
+
+    v[1].idModelo = 2;
+    strcpy(v[1].descripcion, "Zapatilla_Urbana_Negra");
+    v[1].precioBase = 12000.0;
+    v[1].temporada = 'v';
+
+    v[2].idModelo = 3;
+    strcpy(v[2].descripcion, "Zapatilla_Deportiva_Blanche");
+    v[2].precioBase = 15000.0;
+    v[2].temporada = 'v';
+
+    v[3].idModelo = 4;
+    strcpy(v[3].descripcion, "Zapatilla_Trekking_Resistente");
+    v[3].precioBase = 18000.0;
+    v[3].temporada = 'i';
+
+    v[4].idModelo = 5;
+    strcpy(v[4].descripcion, "Zapatilla_Casual_Azul");
+    v[4].precioBase = 13000.0;
+    v[4].temporada = 'v';
+
+    v[5].idModelo = 6;
+    strcpy(v[5].descripcion, "Zapatilla_High_Top_Roja");
+    v[5].precioBase = 17000.0;
+    v[5].temporada = 'i';
+
+    v[6].idModelo = 7;
+    strcpy(v[6].descripcion, "Zapatilla_Minimalista_Beige");
+    v[6].precioBase = 14000.0;
+    v[6].temporada = 'v';
+
+    v[7].idModelo = 8;
+    strcpy(v[7].descripcion, "Zapatilla_Clásica_Bicolor");
+    v[7].precioBase = 12500.0;
+    v[7].temporada = 'v';
+
+    v[8].idModelo = 9;
+    strcpy(v[8].descripcion, "Zapatilla_Correr_Liviana");
+    v[8].precioBase = 16000.0;
+    v[8].temporada = 'v';
+
+    v[9].idModelo = 10;
+    strcpy(v[9].descripcion, "Zapatilla_Skate_Reforzada");
+    v[9].precioBase = 17500.0;
+    v[9].temporada = 'i';
+
+    //inicializar el resto de lo modelos en cero
+    for (int i=10; i<50; i++){
+        v[i].idModelo = 0;
+        strcpy(v[i].descripcion, "\0");
+        v[i].precioBase =0;
+        v[i].temporada = '\0';
+    };
+
+
+};
+
+void cargarListaComponentes(registroModelos vModelos[]) {
+    FILE* comp = fopen("ArchivoListaComp.dat", "rb");
+    cargarDatos(vModelos);
+    listaComp raux;
+    tipoInfoComponentes aux;
+    fread(&raux, sizeof(listaComp), 1, comp);
+    while (!feof(comp)) {
+        int idAnterior = raux.idModelo;
+        while (!feof(comp) && idAnterior == raux.idModelo) {
+            aux.idAccesorio = raux.idAccesorio;
+            aux.cantidad = raux.cantidad;
+            pushLista(vModelos[raux.idModelo - 1].listaComp, aux);
+            fread(&raux, sizeof(listaComp), 1, comp);
         }
     }
+    fclose(comp);
 }
 
-void cargarVector(pedido vec[], FILE* f, int n){
-    for (int i=0;i<n;i++){
-        fread(&vec[i],sizeof(pedido),1,f);
-    }
-}
 
-void leerArchivo (FILE* ArchivoPedidos){ //para usar de prueba borrar cuando ya no lo necesitemos mas
-    pedido Pedido;
-    fseek(ArchivoPedidos, 0, SEEK_SET);  // Volver al inicio del archivo por si se uso y no se cerro
+float CalcularComponente(registroModelos vecModelos[], int N, registroComponentes vecComponentes[],	pedido p){
+	NodoComponentes* Aux=vecModelos[N].listaComp;
+	tipoInfoComponentesProveedores rAux;
+	float ValComponente;
+	float ValComponenteTot=0;
 
-    while (fread(&Pedido, sizeof(pedido), 1, ArchivoPedidos)) {
-        cout << "---------------------" << endl
-        << "idPedido: " << Pedido.idPedido << endl
-        << "idLinea: " << Pedido.idLinea << endl
-        << "fecha: " << Pedido.fecha << endl
-        << "idModelo: " << Pedido.idModelo << endl
-        << "cantidad: " << Pedido.cantidad << endl
-        << "costo: " << Pedido.costo << endl;
-    }
-}
-
-void actualizarPedidos(FILE* ArchivoPedidos, pedido* colaPedidoFrente){
-    pedido Pedido;
-    fseek(ArchivoPedidos, 0, SEEK_SET);  // Volver al inicio del archivo por si se uso y no se cerro
-
-    int idPedidoAnt=0;//no se si se hace falta incicializar :v (dos puntos v)
-    int idLineaAnt;
-
-    int i = 0;
-    
-	while (colaPedidoFrente!=NULL){
-        cout << i << endl;
-    		while(Pedido.idPedido == idPedidoAnt){//esto es para cuando el idPedido se repita. (osea id linea !=)
-    			//Acá tendra que ir todo lo totalLinea y eso
+	
+	while(Aux!=NULL){
+		NodoProveedores*	Aux2= vecComponentes[Aux->info.idAccesorio-1000].listaProveedores;
+		rAux.idProveedor=0;
+		rAux.valorUnitario=0;
+		while(Aux2!=NULL){
+			if((Aux2->info.valorUnitario)<rAux.valorUnitario ){
+				rAux=Aux2->info;
 			}
-		// idPedidoAnt=Pedido.idPedido;
-        i++;
-    }
+			//Para el primer caso
+			if(rAux.idProveedor==0)
+				rAux=Aux2->info;
+			Aux2=Aux2->sgte;
+		}
+		ValComponente=rAux.valorUnitario * (Aux->info.cantidad);
+		cout<<ValComponente<<endl;
+		ValComponenteTot+=ValComponente;
+		vecComponentes[Aux->info.idAccesorio-1000].stock-=Aux->info.cantidad*p.cantidad;
+		Aux=Aux->sgte;	
+	
+	}	
+	cout<<ValComponenteTot<<endl;
+	return ValComponenteTot;
 }
-
-// void queue(NodoPedido*& frente, NodoPedido*& fin, pedido x){ 
-//     NodoPedido* p =new NodoPedido;
-//     p->info = x;
-//     p->sgte=NULL; // como el nodo p va a tener la direccion del ultimo, el siguiente a este necesita ser NULL
-//     // si la cola esta vacia ahora el frente apunta al nuevo nodo
-//     if (frente==NULL){
-//         frente = p;
-//     }
-//     // si la cola NO esta vacia el nuevo nodo se debe enlazar despues del ultimo
-//     else {
-//         fin->sgte=p; // el siguiente del ultimo es el nuevo que acabamos de crear
-//     }
-
-//     fin=p; // el puntero al final siempre debe apuntar al nodo que acabamos de crear
-// }
-
-// pedido unqueue(NodoPedido*& frente, NodoPedido*& fin){
-//     // en el caso de una cola el puntero que siempre se modifica es el del frente, el puntero del final permanece sin modificaciones hasta que saquemos el ultimo
-//     // porque cuando sacamos el ultimo la cola queda vacia y el puntero tiene que apuntar a NULL
-//     NodoPedido* p = frente; // a un puntero auxilar p, le asignamos la direccion de memoria del primer nodo de la cola
-//     pedido x = p->info; // en el entero guardamos la info del primer nodo
-//     frente=p->sgte; // hacemos avanzar al puntero frente al proximo nodo porque vamos a eliminar al que estaba primero
-//     // este control es lo unico que cambia en el procedimiento de la pila, porque si el frente vale NULL el fin tambien
-//     if (frente==NULL){
-//         fin==NULL; // cola vacia
-//     }
-//     delete p; // eliminamos el nodo que era primero antes
-//     return x; // retornamos info del primer nodo
-// }
-
-// PUNTO 1. :
-
-// - Dicho por Roxana: Hacer un while que lea los pedidos (uno por uno), otro que lea las lineas una por una.
-//   Saca el id modelo y lo busca en el vector de modelos con pos unica y predecible (pq esta ordenado).
-//   Calcular el totalLinea = PrecioBase (precio del modelos) + Cant de productos * Componente. Suma el precio base del modelo + el gasto de los componentes.
-//   Por cada componente -> Buscarlo en el vector -> Buscar proveedor mas barato (Punto 2).
-
-// -  Sumar los totales de cada linea y multiplicamos por la cantidad para conseguir el total del pedido.
-
-// - Actualizar el archivo? Agregamos el costo del pedido.
-
-// - Disminuir el stock de cada uno de los componentes usados.
-
-// - Mostrar el total.
-
-// - Mostrar archivo de pedidos actualizado.
-// - Mostrar el total de todos los pedidos? -> Sumar los costos y mostrar por pantalla.
