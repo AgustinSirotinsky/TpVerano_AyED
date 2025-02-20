@@ -140,8 +140,6 @@ int main(){
     if (idPedidoAnt != 0){cout << "Precio Total del pedido: " << CostoPedido << endl;
     cout << "====================================================================" << endl;}
 
-	for(int i=0; i<30;i++)
-		cout<<vecComponentes[i].stock<<endl;
     
     //cerrar archivo
     fclose(ArchivoPedidos);
@@ -332,12 +330,11 @@ float CalcularComponente(registroModelos vecModelos[], int N, registroComponente
 			Aux2=Aux2->sgte;
 		}
 		ValComponente=rAux.valorUnitario * (Aux->info.cantidad);
-		cout<<ValComponente<<endl;
 		ValComponenteTot+=ValComponente;
 		vecComponentes[Aux->info.idAccesorio-1000].stock-=Aux->info.cantidad*p.cantidad;
 		Aux=Aux->sgte;	
 	
 	}	
-	cout<<ValComponenteTot<<endl;
+	
 	return ValComponenteTot;
 }
